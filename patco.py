@@ -1,6 +1,6 @@
-# 6/27/2018		//	Version 1.0
-# 10/10/2018		//	Version 1.1 - updated arrow lengths
-# 5/8/2019		//	Version 1.2 - added "CLOSED" replacements
+# 06/27/2018   //   Version 1.0
+# 10/10/2018   //   Version 1.1 - updated arrow lengths
+# 05/08/2019   //   Version 1.2 - added "CLOSED" replacements
 
 
 fileNames = ["WestWeekday.txt", "WestSaturday.txt", "WestSunday.txt"]
