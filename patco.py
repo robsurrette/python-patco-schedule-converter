@@ -1,6 +1,8 @@
+# coding: utf-8
 # 06/27/2018   //   Version 1.0
 # 10/10/2018   //   Version 1.1 - updated arrow lengths
 # 05/08/2019   //   Version 1.2 - added "CLOSED" replacements
+# 09/12/2020   //   Version 1.3 - added "# coding: utf-8" to handle Non-ASCII Characters: "---4"
 
 
 fileNames = ["WestWeekday.txt", "WestSaturday.txt", "WestSunday.txt"]
@@ -59,9 +61,8 @@ for i in range(3):
 		times[y] = times[y].replace("W","")
 
 
-		times[y] = times[y].replace(" —————————————4","99:99 99:99 99:99")
-		times[y] = times[y].replace(" ————————4","99:99 99:99")						 
-		times[y] = times[y].replace("————4","99:99")
+		#times[y] = times[y].replace(" —————————————4","99:99 99:99 99:99")
+		#times[y] = times[y].replace(" ————————4","99:99 99:99")						 
 		times[y] = times[y].replace("————4","99:99")
 
 		# Old arrow lengths
@@ -509,10 +510,9 @@ for i in range(3):
 		times[y] = times[y].replace("W","")
 
 
-		times[y] = times[y].replace("—————————————4","99:99 99:99 99:99")
-		times[y] = times[y].replace("————————4","99:99 99:99")						 
+		#times[y] = times[y].replace("—————————————4","99:99 99:99 99:99")
+		#times[y] = times[y].replace("————————4","99:99 99:99")						 
 		times[y] = times[y].replace("————4","99:99")
-		times[y] = times[y].replace("——4","99:99")
 
 		
 
