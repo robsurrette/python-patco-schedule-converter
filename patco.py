@@ -65,11 +65,6 @@ for i in range(3):
 		#times[y] = times[y].replace(" ————————4","99:99 99:99")						 
 		times[y] = times[y].replace("————4","99:99")
 
-		# Old arrow lengths
-		#times[y] = times[y].replace("————————————————4","99:99 99:99 99:99")
-		#times[y] = times[y].replace("—————————4","99:99 99:99")
-		#times[y] = times[y].replace("———4","99:99")
-
 
 
 		for x in range(13):
@@ -413,16 +408,16 @@ for x in range(0, 13):
 	print('\t\t\t\tprint("' + stationList[x] + ' West")')
 	
 	print("\t\t\t\tif weekday == 7 { //Saturday")
-	print("\t\t\t\t\tstartStationHour = " + saturdayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + saturdayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + saturdayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + saturdayTimes[y+1])
 
 	print("\t\t\t\t} else if weekday == 1 { //Sunday")
-	print("\t\t\t\t\tstartStationHour = " + sundayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + sundayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + sundayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + sundayTimes[y+1])
 
 	print("\t\t\t\t} else { //Weekday")
-	print("\t\t\t\t\tstartStationHour = " + weekdayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + weekdayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + weekdayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + weekdayTimes[y+1])
 
 	print("\t\t\t\t}")
 
@@ -858,16 +853,16 @@ for x in range(0, 13):
 	print('\t\t\t\tprint("' + stationList[x] + ' East")')
 	
 	print("\t\t\t\tif weekday == 7 { //Saturday")
-	print("\t\t\t\t\tstartStationHour = " + saturdayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + saturdayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + saturdayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + saturdayTimes[y+1])
 
 	print("\t\t\t\t} else if weekday == 1 { //Sunday")
-	print("\t\t\t\t\tstartStationHour = " + sundayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + sundayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + sundayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + sundayTimes[y+1])
 
 	print("\t\t\t\t} else { //Weekday")
-	print("\t\t\t\t\tstartStationHour = " + weekdayTimes[y])
-	print("\t\t\t\t\tstartStationMinute = " + weekdayTimes[y+1])
+	print("\t\t\t\t\tstationHour = " + weekdayTimes[y])
+	print("\t\t\t\t\tstationMinute = " + weekdayTimes[y+1])
 
 	print("\t\t\t\t}")
 
