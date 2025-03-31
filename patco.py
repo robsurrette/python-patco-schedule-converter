@@ -3,6 +3,7 @@
 # 10/10/2018   //   Version 1.1 - updated arrow lengths
 # 05/08/2019   //   Version 1.2 - added "CLOSED" replacements
 # 09/12/2020   //   Version 1.3 - added "# coding: utf-8" to handle Non-ASCII Characters: "---4"
+# 03/31/2025   //   Version 1.4 - added Franklin Square station
 
 
 fileNames = ["WestWeekday.txt", "WestSaturday.txt", "WestSunday.txt"]
@@ -18,6 +19,7 @@ for i in range(3):
 	ferryAveHour = []
 	broadwayHour = []
 	cityHallHour = []
+	franklinSquareHour = []
 	x8marketHour = []
 	x910locustHour = []
 	x1213locustHour = []
@@ -33,6 +35,7 @@ for i in range(3):
 	ferryAveMin = []
 	broadwayMin = []
 	cityHallMin = []
+	franklinSquareMin = []
 	x8marketMin = []
 	x910locustMin = []
 	x1213locustMin = []
@@ -52,22 +55,23 @@ for i in range(3):
 
 	for y in range(len(times)):
 
-		times[y] = times[y].replace(" A","A")
-		times[y] = times[y].replace(" P","P")
+		times[y] = times[y].replace(" A", "A")
+		times[y] = times[y].replace(" P", "P")
 
-		times[y] = times[y].replace("A","")
-		times[y] = times[y].replace("P","")
-		times[y] = times[y].replace("X","")
-		times[y] = times[y].replace("W","")
-
-
-		#times[y] = times[y].replace(" —————————————4","99:99 99:99 99:99")
-		#times[y] = times[y].replace(" ————————4","99:99 99:99")						 
-		times[y] = times[y].replace("————4","99:99")
+		times[y] = times[y].replace("A", "")
+		times[y] = times[y].replace("P", "")
+		times[y] = times[y].replace("X", "")
+		times[y] = times[y].replace("W", "")
 
 
+		#times[y] = times[y].replace(" —————————————4", "99:99 99:99 99:99")
+		#times[y] = times[y].replace(" ————————4", "99:99 99:99")						 
+		times[y] = times[y].replace("————4", "99:99")
+		times[y] = times[y].replace("à", "99:99")
 
-		for x in range(13):
+
+
+		for x in range(14):
 
 			colon = times[y].find(":")
 
@@ -90,12 +94,14 @@ for i in range(3):
 			if x == 8:
 				cityHallHour.append(int(times[y][:colon]))
 			if x == 9:
-				x8marketHour.append(int(times[y][:colon]))
+				franklinSquareHour.append(int(times[y][:colon]))
 			if x == 10:
-				x910locustHour.append(int(times[y][:colon]))
+				x8marketHour.append(int(times[y][:colon]))
 			if x == 11:
-				x1213locustHour.append(int(times[y][:colon]))
+				x910locustHour.append(int(times[y][:colon]))
 			if x == 12:
+				x1213locustHour.append(int(times[y][:colon]))
+			if x == 13:
 				x1516locustHour.append(int(times[y][:colon]))
 
 				
@@ -121,12 +127,14 @@ for i in range(3):
 			if x == 8:
 				cityHallMin.append(int(times[y][:2]))
 			if x == 9:
-				x8marketMin.append(int(times[y][:2]))
+				franklinSquareMin.append(int(times[y][:2]))
 			if x == 10:
-				x910locustMin.append(int(times[y][:2]))
+				x8marketMin.append(int(times[y][:2]))
 			if x == 11:
-				x1213locustMin.append(int(times[y][:2]))
+				x910locustMin.append(int(times[y][:2]))
 			if x == 12:
+				x1213locustMin.append(int(times[y][:2]))
+			if x == 13:
 				x1516locustMin.append(int(times[y][:2]))
 
 
@@ -264,6 +272,20 @@ for i in range(3):
 			cityHallHour[z] = 0
 
 
+	# Franklin Square
+	for z in range(8, len(franklinSquareHour)):
+		if franklinSquareHour[z] == 1:
+			militaryTimeChange = z
+			break
+
+	for z in range(militaryTimeChange, len(franklinSquareHour)):
+		franklinSquareHour[z] = franklinSquareHour[z]+12
+
+	for z in range(0, 5):
+		if franklinSquareHour[z] == 12:
+			franklinSquareHour[z] = 0
+
+
 	# 8th and market
 	for z in range(8, len(x8marketHour)):
 		if x8marketHour[z] == 1:
@@ -334,43 +356,46 @@ for i in range(3):
 	f = open(fileNames[i], 'a')
 
 
-	f.write(repr(lindenwoldHour).replace(" ", "")+"\n")
-	f.write(repr(lindenwoldMin).replace(" ", "")+"\n")
+	f.write(repr(lindenwoldHour).replace(" ", "") + "\n")
+	f.write(repr(lindenwoldMin).replace(" ", "") + "\n")
 
-	f.write(repr(ashlandHour).replace(" ", "")+"\n")
-	f.write(repr(ashlandMin).replace(" ", "")+"\n")
+	f.write(repr(ashlandHour).replace(" ", "") + "\n")
+	f.write(repr(ashlandMin).replace(" ", "") + "\n")
 
-	f.write(repr(woodcrestHour).replace(" ", "")+"\n")
-	f.write(repr(woodcrestMin).replace(" ", "")+"\n")
+	f.write(repr(woodcrestHour).replace(" ", "") + "\n")
+	f.write(repr(woodcrestMin).replace(" ", "") + "\n")
 
-	f.write(repr(haddonfieldHour).replace(" ", "")+"\n")
-	f.write(repr(haddonfieldMin).replace(" ", "")+"\n")
+	f.write(repr(haddonfieldHour).replace(" ", "") + "\n")
+	f.write(repr(haddonfieldMin).replace(" ", "") + "\n")
 
-	f.write(repr(westmontHour).replace(" ", "")+"\n")
-	f.write(repr(westmontMin).replace(" ", "")+"\n")
+	f.write(repr(westmontHour).replace(" ", "") + "\n")
+	f.write(repr(westmontMin).replace(" ", "") + "\n")
 
-	f.write(repr(collingswoodHour).replace(" ", "")+"\n")
-	f.write(repr(collingswoodMin).replace(" ", "")+"\n")
+	f.write(repr(collingswoodHour).replace(" ", "") + "\n")
+	f.write(repr(collingswoodMin).replace(" ", "") + "\n")
 
-	f.write(repr(ferryAveHour).replace(" ", "")+"\n")
-	f.write(repr(ferryAveMin).replace(" ", "")+"\n")
+	f.write(repr(ferryAveHour).replace(" ", "") + "\n")
+	f.write(repr(ferryAveMin).replace(" ", "") + "\n")
 
-	f.write(repr(broadwayHour).replace(" ", "")+"\n")
-	f.write(repr(broadwayMin).replace(" ", "")+"\n")
+	f.write(repr(broadwayHour).replace(" ", "") + "\n")
+	f.write(repr(broadwayMin).replace(" ", "") + "\n")
 
-	f.write(repr(cityHallHour).replace(" ", "")+"\n")
-	f.write(repr(cityHallMin).replace(" ", "")+"\n")
+	f.write(repr(cityHallHour).replace(" ", "") + "\n")
+	f.write(repr(cityHallMin).replace(" ", "") + "\n")
 
-	f.write(repr(x8marketHour).replace(" ", "")+"\n")
-	f.write(repr(x8marketMin).replace(" ", "")+"\n")
+	f.write(repr(franklinSquareHour).replace(" ", "") + "\n")
+	f.write(repr(franklinSquareMin).replace(" ", "") + "\n")
 
-	f.write(repr(x910locustHour).replace(" ", "")+"\n")
-	f.write(repr(x910locustMin).replace(" ", "")+"\n")
+	f.write(repr(x8marketHour).replace(" ", "") + "\n")
+	f.write(repr(x8marketMin).replace(" ", "") + "\n")
 
-	f.write(repr(x1213locustHour).replace(" ", "")+"\n")
-	f.write(repr(x1213locustMin).replace(" ", "")+"\n")
+	f.write(repr(x910locustHour).replace(" ", "") + "\n")
+	f.write(repr(x910locustMin).replace(" ", "") + "\n")
 
-	f.write(repr(x1516locustHour).replace(" ", "")+"\n")
+	f.write(repr(x1213locustHour).replace(" ", "") + "\n")
+	f.write(repr(x1213locustMin).replace(" ", "") + "\n")
+
+	f.write(repr(x1516locustHour).replace(" ", "") + "\n")
 	f.write(repr(x1516locustMin).replace(" ", ""))
 
 	f.close()
@@ -380,7 +405,7 @@ for i in range(3):
 
 print('West Done')
 
-stationList = ["Lindenwold", "Ashland", "Woodcrest", "Haddonfield", "Westmont", "Collingswood", "Ferry Ave", "Broadway", "City Hall", "8th and Market", "9/10 and Locust", "12/13 and Locust", "15/16 and Locust"]
+stationList = ["Lindenwold", "Ashland", "Woodcrest", "Haddonfield", "Westmont", "Collingswood", "Ferry Ave", "Broadway", "City Hall", "Franklin Square", "8th and Market", "9/10 and Locust", "12/13 and Locust", "15/16 and Locust"]
 
 
 with open("WestSaturday.txt", "r") as ins:
@@ -402,24 +427,24 @@ with open("WestWeekday.txt", "r") as ins:
 
 
 y = 0
-for x in range(0, 13):
+for x in range(0, 14):
 	
-	print("\t\t\tcase " + str(x) + " :")
-	print('\t\t\t\tprint("' + stationList[x] + ' West")')
+	print("case " + str(x) + " :")
+	print('\tprint("' + stationList[x] + ' West")')
 	
-	print("\t\t\t\tif weekday == 7 { //Saturday")
-	print("\t\t\t\t\tstationHour = " + saturdayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + saturdayTimes[y+1])
+	print("\tif weekday == 7 { // Saturday")
+	print("\t\tstationHour = " + saturdayTimes[y])
+	print("\t\tstationMinute = " + saturdayTimes[y+1])
 
-	print("\t\t\t\t} else if weekday == 1 { //Sunday")
-	print("\t\t\t\t\tstationHour = " + sundayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + sundayTimes[y+1])
+	print("\t} else if weekday == 1 { // Sunday")
+	print("\t\tstationHour = " + sundayTimes[y])
+	print("\t\tstationMinute = " + sundayTimes[y+1])
 
-	print("\t\t\t\t} else { //Weekday")
-	print("\t\t\t\t\tstationHour = " + weekdayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + weekdayTimes[y+1])
+	print("\t} else { // Weekday")
+	print("\t\tstationHour = " + weekdayTimes[y])
+	print("\t\tstationMinute = " + weekdayTimes[y+1])
 
-	print("\t\t\t\t}")
+	print("\t}")
 
 	y = y+2
 
@@ -461,6 +486,7 @@ for i in range(3):
 	ferryAveHour = []
 	broadwayHour = []
 	cityHallHour = []
+	franklinSquareHour = []
 	x8marketHour = []
 	x910locustHour = []
 	x1213locustHour = []
@@ -476,6 +502,7 @@ for i in range(3):
 	ferryAveMin = []
 	broadwayMin = []
 	cityHallMin = []
+	franklinSquareMin = []
 	x8marketMin = []
 	x910locustMin = []
 	x1213locustMin = []
@@ -495,44 +522,47 @@ for i in range(3):
 
 	for y in range(len(times)):
 
-		times[y] = times[y].replace(" A","A")
-		times[y] = times[y].replace(" P","P")
+		times[y] = times[y].replace(" A", "A")
+		times[y] = times[y].replace(" P", "P")
 
-		times[y] = times[y].replace("A","")
-		times[y] = times[y].replace("P","")
-		times[y] = times[y].replace("X","")
+		times[y] = times[y].replace("A", "")
+		times[y] = times[y].replace("P", "")
+		times[y] = times[y].replace("X", "")
 
-		times[y] = times[y].replace("W","")
+		times[y] = times[y].replace("W", "")
 
 
-		#times[y] = times[y].replace("—————————————4","99:99 99:99 99:99")
-		#times[y] = times[y].replace("————————4","99:99 99:99")						 
-		times[y] = times[y].replace("————4","99:99")
+		#times[y] = times[y].replace("—————————————4", "99:99 99:99 99:99")
+		#times[y] = times[y].replace("————————4", "99:99 99:99")						 
+		times[y] = times[y].replace("————4", "99:99")
+		times[y] = times[y].replace("à", "99:99")
 
 		
 
-		for x in range(13):
+		for x in range(14):
 
 			colon = times[y].find(":")
 
-			if x == 12:
+			if x == 13:
 				lindenwoldHour.append(int(times[y][:colon]))
-			if x == 11:
+			if x == 12:
 				ashlandHour.append(int(times[y][:colon]))
-			if x == 10:
+			if x == 11:
 				woodcrestHour.append(int(times[y][:colon]))
-			if x == 9:
+			if x == 10:
 				haddonfieldHour.append(int(times[y][:colon]))
-			if x == 8:
+			if x == 9:
 				westmontHour.append(int(times[y][:colon]))
-			if x == 7:
+			if x == 8:
 				collingswoodHour.append(int(times[y][:colon]))
-			if x == 6:
+			if x == 7:
 				ferryAveHour.append(int(times[y][:colon]))
-			if x == 5:
+			if x == 6:
 				broadwayHour.append(int(times[y][:colon]))
-			if x == 4:
+			if x == 5:
 				cityHallHour.append(int(times[y][:colon]))
+			if x == 4:
+				franklinSquareHour.append(int(times[y][:colon]))
 			if x == 3:
 				x8marketHour.append(int(times[y][:colon]))
 			if x == 2:
@@ -548,24 +578,26 @@ for i in range(3):
 
 
 
-			if x == 12:
+			if x == 13:
 				lindenwoldMin.append(int(times[y][:2]))
-			if x == 11:
+			if x == 12:
 				ashlandMin.append(int(times[y][:2]))
-			if x == 10:
+			if x == 11:
 				woodcrestMin.append(int(times[y][:2]))
-			if x == 9:
+			if x == 10:
 				haddonfieldMin.append(int(times[y][:2]))
-			if x == 8:
+			if x == 9:
 				westmontMin.append(int(times[y][:2]))
-			if x == 7:
+			if x == 8:
 				collingswoodMin.append(int(times[y][:2]))
-			if x == 6:
+			if x == 7:
 				ferryAveMin.append(int(times[y][:2]))
-			if x == 5:
+			if x == 6:
 				broadwayMin.append(int(times[y][:2]))
-			if x == 4:
+			if x == 5:
 				cityHallMin.append(int(times[y][:2]))
+			if x == 4:
+				franklinSquareMin.append(int(times[y][:2]))
 			if x == 3:
 				x8marketMin.append(int(times[y][:2]))
 			if x == 2:
@@ -709,6 +741,20 @@ for i in range(3):
 			cityHallHour[z] = 0
 
 
+	# Franklin Square
+	for z in range(8, len(franklinSquareHour)):
+		if franklinSquareHour[z] == 1:
+			militaryTimeChange = z
+			break
+
+	for z in range(militaryTimeChange, len(franklinSquareHour)):
+		franklinSquareHour[z] = franklinSquareHour[z]+12
+
+	for z in range(0, 5):
+		if franklinSquareHour[z] == 12:
+			franklinSquareHour[z] = 0
+
+
 	# 8th and market
 	for z in range(8, len(x8marketHour)):
 		if x8marketHour[z] == 1:
@@ -779,43 +825,46 @@ for i in range(3):
 	f = open(fileNames[i], 'a')
 
 
-	f.write(repr(lindenwoldHour).replace(" ", "")+"\n")
-	f.write(repr(lindenwoldMin).replace(" ", "")+"\n")
+	f.write(repr(lindenwoldHour).replace(" ", "") + "\n")
+	f.write(repr(lindenwoldMin).replace(" ", "") + "\n")
 
-	f.write(repr(ashlandHour).replace(" ", "")+"\n")
-	f.write(repr(ashlandMin).replace(" ", "")+"\n")
+	f.write(repr(ashlandHour).replace(" ", "") + "\n")
+	f.write(repr(ashlandMin).replace(" ", "") + "\n")
 
-	f.write(repr(woodcrestHour).replace(" ", "")+"\n")
-	f.write(repr(woodcrestMin).replace(" ", "")+"\n")
+	f.write(repr(woodcrestHour).replace(" ", "") + "\n")
+	f.write(repr(woodcrestMin).replace(" ", "") + "\n")
 
-	f.write(repr(haddonfieldHour).replace(" ", "")+"\n")
-	f.write(repr(haddonfieldMin).replace(" ", "")+"\n")
+	f.write(repr(haddonfieldHour).replace(" ", "") + "\n")
+	f.write(repr(haddonfieldMin).replace(" ", "") + "\n")
 
-	f.write(repr(westmontHour).replace(" ", "")+"\n")
-	f.write(repr(westmontMin).replace(" ", "")+"\n")
+	f.write(repr(westmontHour).replace(" ", "") + "\n")
+	f.write(repr(westmontMin).replace(" ", "") + "\n")
 
-	f.write(repr(collingswoodHour).replace(" ", "")+"\n")
-	f.write(repr(collingswoodMin).replace(" ", "")+"\n")
+	f.write(repr(collingswoodHour).replace(" ", "") + "\n")
+	f.write(repr(collingswoodMin).replace(" ", "") + "\n")
 
-	f.write(repr(ferryAveHour).replace(" ", "")+"\n")
-	f.write(repr(ferryAveMin).replace(" ", "")+"\n")
+	f.write(repr(ferryAveHour).replace(" ", "") + "\n")
+	f.write(repr(ferryAveMin).replace(" ", "") + "\n")
 
-	f.write(repr(broadwayHour).replace(" ", "")+"\n")
-	f.write(repr(broadwayMin).replace(" ", "")+"\n")
+	f.write(repr(broadwayHour).replace(" ", "") + "\n")
+	f.write(repr(broadwayMin).replace(" ", "") + "\n")
 
-	f.write(repr(cityHallHour).replace(" ", "")+"\n")
-	f.write(repr(cityHallMin).replace(" ", "")+"\n")
+	f.write(repr(cityHallHour).replace(" ", "") + "\n")
+	f.write(repr(cityHallMin).replace(" ", "") + "\n")
 
-	f.write(repr(x8marketHour).replace(" ", "")+"\n")
-	f.write(repr(x8marketMin).replace(" ", "")+"\n")
+	f.write(repr(franklinSquareHour).replace(" ", "") + "\n")
+	f.write(repr(franklinSquareMin).replace(" ", "") + "\n")
 
-	f.write(repr(x910locustHour).replace(" ", "")+"\n")
-	f.write(repr(x910locustMin).replace(" ", "")+"\n")
+	f.write(repr(x8marketHour).replace(" ", "") + "\n")
+	f.write(repr(x8marketMin).replace(" ", "") + "\n")
 
-	f.write(repr(x1213locustHour).replace(" ", "")+"\n")
-	f.write(repr(x1213locustMin).replace(" ", "")+"\n")
+	f.write(repr(x910locustHour).replace(" ", "") + "\n")
+	f.write(repr(x910locustMin).replace(" ", "") + "\n")
 
-	f.write(repr(x1516locustHour).replace(" ", "")+"\n")
+	f.write(repr(x1213locustHour).replace(" ", "") + "\n")
+	f.write(repr(x1213locustMin).replace(" ", "") + "\n")
+
+	f.write(repr(x1516locustHour).replace(" ", "") + "\n")
 	f.write(repr(x1516locustMin).replace(" ", ""))
 
 	f.close()
@@ -825,7 +874,7 @@ for i in range(3):
 
 
 
-stationList = ["Lindenwold", "Ashland", "Woodcrest", "Haddonfield", "Westmont", "Collingswood", "Ferry Ave", "Broadway", "City Hall", "8th and Market", "9/10 and Locust", "12/13 and Locust", "15/16 and Locust"]
+stationList = ["Lindenwold", "Ashland", "Woodcrest", "Haddonfield", "Westmont", "Collingswood", "Ferry Ave", "Broadway", "City Hall", "Franklin Square", "8th and Market", "9/10 and Locust", "12/13 and Locust", "15/16 and Locust"]
 
 
 with open("EastSaturday.txt", "r") as ins:
@@ -847,23 +896,23 @@ with open("EastWeekday.txt", "r") as ins:
 
 
 y = 0
-for x in range(0, 13):
+for x in range(0, 14):
 	
-	print("\t\t\tcase " + str(x) + " :")
-	print('\t\t\t\tprint("' + stationList[x] + ' East")')
+	print("case " + str(x) + " :")
+	print('\tprint("' + stationList[x] + ' East")')
 	
-	print("\t\t\t\tif weekday == 7 { //Saturday")
-	print("\t\t\t\t\tstationHour = " + saturdayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + saturdayTimes[y+1])
+	print("\tif weekday == 7 { // Saturday")
+	print("\t\tstationHour = " + saturdayTimes[y])
+	print("\t\tstationMinute = " + saturdayTimes[y+1])
 
-	print("\t\t\t\t} else if weekday == 1 { //Sunday")
-	print("\t\t\t\t\tstationHour = " + sundayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + sundayTimes[y+1])
+	print("\t} else if weekday == 1 { // Sunday")
+	print("\t\tstationHour = " + sundayTimes[y])
+	print("\t\tstationMinute = " + sundayTimes[y+1])
 
-	print("\t\t\t\t} else { //Weekday")
-	print("\t\t\t\t\tstationHour = " + weekdayTimes[y])
-	print("\t\t\t\t\tstationMinute = " + weekdayTimes[y+1])
+	print("\t} else { // Weekday")
+	print("\t\tstationHour = " + weekdayTimes[y])
+	print("\t\tstationMinute = " + weekdayTimes[y+1])
 
-	print("\t\t\t\t}")
+	print("\t}")
 
 	y = y+2
